@@ -1,3 +1,4 @@
+from cmath import e
 import uuid
 from datetime import datetime, timezone
 
@@ -16,7 +17,8 @@ class UserBase(SQLModel):
     is_active: bool = True
     is_superuser: bool = False
     full_name: str | None = Field(default=None, max_length=255)
-
+    age: int | None = Field(default=None, ge=0, le=150)
+    ethnicity: str | None = Field(default='Russian', max_length=255)
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
@@ -38,6 +40,8 @@ class UserUpdate(UserBase):
 class UserUpdateMe(SQLModel):
     full_name: str | None = Field(default=None, max_length=255)
     email: EmailStr | None = Field(default=None, max_length=255)
+    age: int | None = Field(default=None, ge=0, le=150)
+    ethnicity: str | None = Field(default=None, max_length=255)
 
 
 class UpdatePassword(SQLModel):
